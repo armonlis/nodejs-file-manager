@@ -24,7 +24,7 @@ export default class FileManager {
   make(command) {
     let commandName;
     try {
-      [commandName] = command.toString("utf-8").split(" ");
+      [commandName] = command.toString("utf-8").trim().split(" ").filter(el => el !== "" && el !== " ");
       const [ , ...args] = command.toString("utf-8").split(" ");
       commandName = commandName.replace(/\n/g, "");
       if (commandName === ".exit") { this.exit() }                                                           // special check for RSSchool
