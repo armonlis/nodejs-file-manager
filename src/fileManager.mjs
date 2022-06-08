@@ -1,12 +1,13 @@
 import { stderr, stdout, env } from "process";
-import { fileURLToPath } from "url";
-import path from "path";
+
+import up from "./modules/navigation/up.mjs";
 
 export default class FileManager {
   constructor(options) {
     const {user = "Anonimus"}  = options;
     this.user = user;
     this.workDir = env.HOME;
+    this.up = up.bind(this);
   };
 
   getWelcome() {
@@ -21,7 +22,7 @@ export default class FileManager {
   };
 
   getCurrentDir() {
-    stdout.write(`You are currently in ${this.workDir}\n`);
+    stdout.write(`You are currently in ${this.workDir}\n>>>`);
   };
 
   exit() {
@@ -38,8 +39,12 @@ export default class FileManager {
       this[commandName](args);
       this.getCurrentDir();  
     }
-    catch {
-      stderr.write(`ERROR>>> Invalid input. The command "${commandName}" is not supported.\n`);
+    catch(error) {
+      if (error.message === "this[commandName] is not a function") {
+        stderr.write(`ERROR>>> Invalid input. The command "${commandName}" is not supported.\n`);
+      } else {
+        stderr.write(`ERROR>>> The operation failed. ${error.message}.\n`);  
+      }
       this.getCurrentDir();
     };
   }
