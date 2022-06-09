@@ -6,6 +6,7 @@ import ls from "./modules/navigation/ls.mjs";
 import cat from "./modules/operations/cat.mjs";
 import add from "./modules/operations/add.mjs";
 import rn from "./modules/operations/rn.mjs";
+import cp from "./modules/operations/cp.mjs";
 
 export default class FileManager {
   constructor(options) {
@@ -18,6 +19,8 @@ export default class FileManager {
     this.cat = cat.bind(this);
     this.add = add.bind(this);
     this.rn = rn.bind(this);
+    this.cp = cp.bind(this);
+    this.mv = (src, dest) => cp.bind(this, src, dest, true)();
   };
 
   getWelcome() {
@@ -42,7 +45,8 @@ export default class FileManager {
       [commandName] = command.toString("utf-8").trim().split(" ").filter(el => el !== "" && el !== " ");
       const [ , ...args] = command.toString("utf-8").split(" ");
       args.length > 0 ? args[args.length - 1] = args[args.length - 1].replace(/\n/, "") : undefined;
-      if (commandName === ".exit") { this.exit() }                                                           // special check for RSSchool
+      if (commandName === ".exit") { this.exit() }
+      console.log("ARGS>>>", args)                                                           // special check for RSSchool
       await this[commandName](...args);
       stdout.write(`You are currently in ${this.workDir} >>> `);
     }
