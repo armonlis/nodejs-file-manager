@@ -3,8 +3,8 @@ import { stderr, stdout, env, stdin } from "process";
 import up from "./modules/navigation/up.mjs";
 import cd from "./modules/navigation/cd.mjs";
 import ls from "./modules/navigation/ls.mjs";
-
 import cat from "./modules/operations/cat.mjs";
+import add from "./modules/operations/add.mjs";
 
 export default class FileManager {
   constructor(options) {
@@ -15,6 +15,7 @@ export default class FileManager {
     this.cd = cd.bind(this);
     this.ls = ls.bind(this);
     this.cat = cat.bind(this);
+    this.add = add.bind(this);
   };
 
   getWelcome() {
