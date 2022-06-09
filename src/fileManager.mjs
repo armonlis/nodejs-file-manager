@@ -2,6 +2,7 @@ import { stderr, stdout, env } from "process";
 
 import up from "./modules/navigation/up.mjs";
 import cd from "./modules/navigation/cd.mjs";
+import ls from "./modules/navigation/ls.mjs";
 
 export default class FileManager {
   constructor(options) {
@@ -10,6 +11,7 @@ export default class FileManager {
     this.workDir = env.HOME;
     this.up = up.bind(this);
     this.cd = cd.bind(this);
+    this.ls = ls.bind(this);
   };
 
   getWelcome() {
