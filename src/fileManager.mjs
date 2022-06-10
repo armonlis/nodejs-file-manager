@@ -9,6 +9,7 @@ import rn from "./modules/operations/rn.mjs";
 import cp from "./modules/operations/cp.mjs";
 import rm from "./modules/operations/rm.mjs";
 import os from "./modules/os/os.mjs";
+import hash from "./modules/hash/hash.mjs";
 
 export default class FileManager {
   constructor(options) {
@@ -24,7 +25,8 @@ export default class FileManager {
     this.cp = cp.bind(this);
     this.mv = (src, dest) => cp.bind(this, src, dest, true)();
     this.rm = rm.bind(this);
-    this.os = (request) => os(request); 
+    this.os = (request) => os(request);
+    this.hash = hash.bind(this); 
   };
 
   getWelcome() {
