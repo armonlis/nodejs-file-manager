@@ -10,6 +10,7 @@ import cp from "./modules/operations/cp.mjs";
 import rm from "./modules/operations/rm.mjs";
 import os from "./modules/os/os.mjs";
 import hash from "./modules/hash/hash.mjs";
+import brotli from "./modules/brotli/brotli.mjs";
 
 export default class FileManager {
   constructor(options) {
@@ -26,7 +27,9 @@ export default class FileManager {
     this.mv = (src, dest) => cp.bind(this, src, dest, true)();
     this.rm = rm.bind(this);
     this.os = (request) => os(request);
-    this.hash = hash.bind(this); 
+    this.hash = hash.bind(this);
+    this.compress = (src , dest) => brotli.bind(this, src, dest, "compress")();
+    this.decompress = (src , dest) => brotli.bind(this, src, dest, "decompress")(); 
   };
 
   getWelcome() {
