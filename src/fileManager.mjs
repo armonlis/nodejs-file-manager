@@ -30,7 +30,8 @@ export default class FileManager {
     this.os = (request) => os(request);
     this.hash = hash.bind(this);
     this.compress = (src , dest) => brotli.bind(this, src, dest, "compress")();
-    this.decompress = (src , dest) => brotli.bind(this, src, dest, "decompress")(); 
+    this.decompress = (src , dest) => brotli.bind(this, src, dest, "decompress")();
+    this.getWelcome(); 
   };
 
   getWelcome() {

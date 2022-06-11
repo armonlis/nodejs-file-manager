@@ -8,7 +8,6 @@ const runManager = () => {
     let user = args.length === 2 && args[0] === "--username" ? args[1] : undefined;
     user = !user && args.length === 1 && args[0].startsWith("--username=") ? args[0].slice(11) : user;
     const manager = new FileManager({user});
-    manager.getWelcome();
     process.on("SIGINT", () => manager.exit());
     stdin.on("data", data => manager.make(data));
     
