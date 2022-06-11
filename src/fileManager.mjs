@@ -35,12 +35,16 @@ export default class FileManager {
   getWelcome() {
     stdout.write("------------------------------------------------------------------------------------\n");
     stdout.write(`\t\t\tWelcom to the file manager, ${this.user}!\n\n`);  
-    stdout.write(`You are currently in ${this.workDir} >>> `);  
+    this.printWorkDir(); 
   };
 
   getFarwell() {
     stdout.write(`\n\n\t\t\tThank you for using the file manager, ${this.user}!\n`);
     stdout.write("------------------------------------------------------------------------------------\n\n");  
+  };
+
+  printWorkDir() {
+    stdout.write(`You are currently in ${this.workDir} >>> `);
   };
 
   exit() {
@@ -56,15 +60,15 @@ export default class FileManager {
       args.length > 0 ? args[args.length - 1] = args[args.length - 1].replace(/\n/, "") : undefined;
       if (commandName === ".exit") { this.exit() }                                                            // special check for RSSchool
       await this[commandName](...args);
-      stdout.write(`You are currently in ${this.workDir} >>> `);
+      this.printWorkDir();
     }
     catch(error) {
       if (error.message === "this[commandName] is not a function") {
-        stderr.write(`ERROR>>> Invalid input. The command "${commandName}" is not supported.\n`);
+        stderr.write(`\tInvalid input. The command "${commandName}" is not supported.\n`);
       } else {
-        stderr.write(`ERROR>>> The operation failed. ${error.message}.\n`);  
+        stderr.write(`\tThe operation failed. ${error.message}.\n`);  
       }
-      stdout.write(`You are currently in ${this.workDir} >>> `);
+      this.printWorkDir();
     };
   }
 };
