@@ -1,5 +1,6 @@
-import { stderr, stdout, env, stdin } from "process";
+import { stderr, stdout, env } from "process";
 
+import splashScreen from "./modules/splashScreen.mjs";
 import up from "./modules/navigation/up.mjs";
 import cd from "./modules/navigation/cd.mjs";
 import ls from "./modules/navigation/ls.mjs";
@@ -33,14 +34,15 @@ export default class FileManager {
   };
 
   getWelcome() {
-    stdout.write("------------------------------------------------------------------------------------\n");
+    stdout.write(`${splashScreen}\n\n\n`);
+    stdout.write("-------------------------------------------------------------------------------------------------------------\n\n");
     stdout.write(`\t\t\tWelcom to the file manager, ${this.user}!\n\n`);  
     this.printWorkDir(); 
   };
 
   getFarwell() {
     stdout.write(`\n\n\t\t\tThank you for using the file manager, ${this.user}!\n`);
-    stdout.write("------------------------------------------------------------------------------------\n\n");  
+    stdout.write("-------------------------------------------------------------------------------------------------------------\n\n");  
   };
 
   printWorkDir() {
