@@ -5,7 +5,8 @@ import FileManager from "./fileManager.mjs";
 const runManager = () => {
   try {
     const args = argv.slice(2);
-    const user = args[0] === "--username" ? args[1] : undefined;
+    let user = args.length === 2 && args[0] === "--username" ? args[1] : undefined;
+    user = !user && args.length === 1 && args[0].startsWith("--username=") ? args[0].slice(11) : user;
     const manager = new FileManager({user});
     manager.getWelcome();
     process.on("SIGINT", () => manager.exit());
@@ -13,7 +14,7 @@ const runManager = () => {
     
   }
   catch(err) {
-    stderr.write(`ERROR>>> ${err.message}.\n`);
+    stderr.write(`FATAL ERROR>>> ${err.message}.\n`);
   };
 };
 
